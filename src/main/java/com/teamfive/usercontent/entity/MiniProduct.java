@@ -3,8 +3,10 @@ package com.teamfive.usercontent.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 @Document(collection = MiniProduct.COLLECTION_NAME)
-public class MiniProduct {
+public class MiniProduct implements Serializable {
     public static final String COLLECTION_NAME="miniProduct";
     @Id
     private String productId;

@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 
 
 @RestController
@@ -29,7 +30,7 @@ public class cartController {
     cart.setToken(cartDTO.getToken());
     MiniProduct miniProduct=new MiniProduct();
     BeanUtils.copyProperties(cartDTO.getProduct(),miniProduct);
-    cart.setProduct(miniProduct);
+    cart.addProduct(miniProduct);
 
 //        Cart cart = new Cart();
 //        Iterable<MiniProduct> products= (Iterable<MiniProduct>) cartDTO.getProduct();
@@ -47,19 +48,10 @@ public class cartController {
      return cart;
     }
     @RequestMapping(value ="/select",method = RequestMethod.GET)
-    public CartDTO getCart(@RequestParam String token)
+    public Cart getCart(@RequestParam String token)
     {
         Cart cart=cartService.getCart(token);
-        CartDTO cartDTO=new CartDTO();
-        BeanUtils.copyProperties(cart,cartDTO);
-        for(MiniProduct mp: cart.getProduct())
-        {
-            MiniProductDTO miniProductDTO=new MiniProductDTO();
-            BeanUtils.copyProperties(mp,miniProductDTO);
-            cartDTO.setProduct(miniProductDTO);
-        }
-        System.out.println(cartDTO);
-        return cartDTO;
+        return cart;
     }
     @RequestMapping(value ="/update",method = RequestMethod.PUT)
     public Cart updateCart(@RequestBody CartDTO cartDTO)
@@ -71,9 +63,29 @@ public class cartController {
         return cartService.updateCart(cart);
     }
     @RequestMapping(value ="/delete",method = RequestMethod.DELETE)
-    public void deleteCart(@RequestParam String token)
+    public void deleteCart(@RequestParam String token,@RequestParam String id)
     {
-        cartService.deleteCart(token);
+
+        Cart cart=cartService.getCart(token);
+        ArrayList<MiniProduct> p= cart.getProduct();
+        Cart cartnew = new Cart();
+        cartnew.setToken(token);
+        for(MiniProduct m: p)
+        {
+
+            if(m.getProductId().equals(id))
+            {
+
+            }
+            else
+            {
+                cartnew.addProduct(m);
+            }
+
+        }
+
+
+        cartService.updateCart(cartnew);
     }
 
     @RequestMapping(value = "/get",method = RequestMethod.GET)

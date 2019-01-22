@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,11 @@ public class Cart {
         return this.product;
     }
 
-    public void setProduct(MiniProduct product) {
+    public void setProduct(ArrayList<MiniProduct> product) {
+        this.product=product;
+    }
+
+    public void addProduct(MiniProduct product){
         this.product.add(product);
     }
 
