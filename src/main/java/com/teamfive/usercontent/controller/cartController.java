@@ -1,7 +1,9 @@
 package com.teamfive.usercontent.controller;
 
 import com.teamfive.usercontent.dto.CartDTO;
+import com.teamfive.usercontent.dto.MiniProductDTO;
 import com.teamfive.usercontent.entity.Cart;
+import com.teamfive.usercontent.entity.MiniProduct;
 import com.teamfive.usercontent.services.CartService;
 import com.teamfive.usercontent.services.MiniProductService;
 import org.springframework.beans.BeanUtils;
@@ -22,10 +24,12 @@ public class cartController {
     public Cart addCart(@RequestBody CartDTO cartDTO)
    {
 
-    Cart cart= getCart(cartDTO.getToken());
+    Cart cart= cartService.getCart(cartDTO.getToken());
     if(cart==null) cart=new Cart();
     cart.setToken(cartDTO.getToken());
-    cart.setProduct(cartDTO.getProduct());
+    MiniProduct miniProduct=new MiniProduct();
+    BeanUtils.copyProperties(cartDTO.getProduct(),miniProduct);
+    cart.setProduct(miniProduct);
 
 //        Cart cart = new Cart();
 //        Iterable<MiniProduct> products= (Iterable<MiniProduct>) cartDTO.getProduct();
@@ -43,10 +47,19 @@ public class cartController {
      return cart;
     }
     @RequestMapping(value ="/select",method = RequestMethod.GET)
-    public Cart getCart(@RequestParam String token)
+    public CartDTO getCart(@RequestParam String token)
     {
         Cart cart=cartService.getCart(token);
-        return cart;
+        CartDTO cartDTO=new CartDTO();
+        BeanUtils.copyProperties(cart,cartDTO);
+        for(MiniProduct mp: cart.getProduct())
+        {
+            MiniProductDTO miniProductDTO=new MiniProductDTO();
+            BeanUtils.copyProperties(mp,miniProductDTO);
+            cartDTO.setProduct(miniProductDTO);
+        }
+        System.out.println(cartDTO);
+        return cartDTO;
     }
     @RequestMapping(value ="/update",method = RequestMethod.PUT)
     public Cart updateCart(@RequestBody CartDTO cartDTO)

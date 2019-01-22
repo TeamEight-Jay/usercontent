@@ -1,5 +1,6 @@
 package com.teamfive.usercontent.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +15,8 @@ public class Cart {
 
     @Id
     private String token;
-    private List<MiniProduct> product = new ArrayList() ;
+
+    private ArrayList<MiniProduct> product = new ArrayList<MiniProduct>() ;
 
 
     public String getToken() {
@@ -25,7 +27,7 @@ public class Cart {
         this.token = token;
     }
 
-    public List<MiniProduct> getProduct(MiniProduct product) {
+    public ArrayList<MiniProduct> getProduct() {
         return this.product;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CartDTO {
     private String token;
-    private MiniProduct product;
+    private MiniProductDTO product;
 
 
     public String getToken() {
@@ -18,11 +18,11 @@ public class CartDTO {
         this.token = token;
     }
 
-    public MiniProduct getProduct() {
+    public MiniProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(MiniProduct product) {
+    public void setProduct(MiniProductDTO product) {
         this.product = product;
     }
 

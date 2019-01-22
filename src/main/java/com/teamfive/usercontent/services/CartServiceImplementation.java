@@ -24,6 +24,7 @@ CartRepository cartRepository;
     @Override
     public Cart getCart(String token) {
         Cart cart = cartRepository.findOne(token);
+        System.out.println(cart);
         return cart;
     }
 
