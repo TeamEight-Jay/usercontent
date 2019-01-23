@@ -1,11 +1,10 @@
 package com.teamfive.usercontent.dto;
 
 import com.teamfive.usercontent.entity.Address;
-import com.teamfive.usercontent.entity.MiniProduct;
 
 public class OrderIntDTO {
     private String orderId;
-    private MiniProduct miniProduct;
+    private MiniProductDTO miniProduct;
     private String merchantId;
     private String price;
     private String modeOfPayment;
@@ -23,11 +22,11 @@ public class OrderIntDTO {
         this.orderId = orderId;
     }
 
-    public MiniProduct getMiniProduct() {
+    public MiniProductDTO getMiniProduct() {
         return miniProduct;
     }
 
-    public void setMiniProduct(MiniProduct miniProduct) {
+    public void setMiniProduct(MiniProductDTO miniProduct) {
         this.miniProduct = miniProduct;
     }
 

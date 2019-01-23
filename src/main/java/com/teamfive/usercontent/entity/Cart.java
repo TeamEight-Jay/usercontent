@@ -1,13 +1,11 @@
 package com.teamfive.usercontent.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.teamfive.usercontent.dto.MiniProductDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Min;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 @Document(collection=Cart.COLLECTION_NAME)
 public class Cart {
@@ -15,35 +13,30 @@ public class Cart {
 
 
     @Id
-    private String token;
+    private String userId;
 
-    private ArrayList<MiniProduct> product = new ArrayList<MiniProduct>() ;
+    private HashMap<String,MiniProductDTO> product = new HashMap<String, MiniProductDTO>() ;
 
-
-    public String getToken() {
-        return token;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public ArrayList<MiniProduct> getProduct() {
-        return this.product;
+    public HashMap<String, MiniProductDTO> getProduct() {
+        return product;
     }
 
-    public void setProduct(ArrayList<MiniProduct> product) {
-        this.product=product;
-    }
-
-    public void addProduct(MiniProduct product){
-        this.product.add(product);
+    public void setProduct(HashMap<String, MiniProductDTO> product) {
+        this.product = product;
     }
 
     @Override
     public String toString() {
         return "Cart{" +
-                "token='" + token + '\'' +
+                "token='" + userId + '\'' +
                 ", product=" + product +
                 '}';
     }

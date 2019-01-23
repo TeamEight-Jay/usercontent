@@ -1,13 +1,14 @@
 package com.teamfive.usercontent.services;
 
 import com.teamfive.usercontent.dto.CartDTO;
-import com.teamfive.usercontent.entity.Cart;
+import com.teamfive.usercontent.dto.MiniProductDTO;
 
 public interface CartService {
-    public Cart addCart(Cart cart);
-    public Cart getCart(String token);
-    public Cart updateCart(Cart cartId);
-    public void deleteCart(String token);
-public Iterable<Cart> findByToken(String token);
+    public CartDTO createCart(String userId);
+    public CartDTO getCart(String userId);
+    public void deleteCart(String userId);
+    public void addItem(String userId,MiniProductDTO miniProductDTO);
+    public void deleteItem(String userId,String inventoryId);
+    public boolean check(String userId);
 
 }

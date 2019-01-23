@@ -1,5 +1,6 @@
 package com.teamfive.usercontent.entity;
 
+import com.teamfive.usercontent.dto.MiniProductDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,15 +10,25 @@ public class OrderInt {
     public static final String COLLECTION_NAME="orderInt";
     @Id
     private String orderId;
-    private MiniProduct miniProduct;
+    private MiniProductDTO miniProduct;
     private String merchantId;
     private String price;
     private String modeOfPayment;
     private Address address;
     private String date;
     private String userId;
-    private String review;
+    private float rating;
     private String status;
+    private String quantity;
+
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -27,11 +38,11 @@ public class OrderInt {
         this.orderId = orderId;
     }
 
-    public MiniProduct getMiniProduct() {
+    public MiniProductDTO getMiniProduct() {
         return miniProduct;
     }
 
-    public void setMiniProduct(MiniProduct miniProduct) {
+    public void setMiniProduct(MiniProductDTO miniProduct) {
         this.miniProduct = miniProduct;
     }
 
@@ -83,12 +94,12 @@ public class OrderInt {
         this.userId = userId;
     }
 
-    public String getReview() {
-        return review;
+    public float getRating() {
+        return rating;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getStatus() {
@@ -98,6 +109,7 @@ public class OrderInt {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     @Override
     public String toString() {
@@ -110,8 +122,9 @@ public class OrderInt {
                 ", address=" + address +
                 ", date='" + date + '\'' +
                 ", userId='" + userId + '\'' +
-                ", review='" + review + '\'' +
+                ", rating=" + rating +
                 ", status='" + status + '\'' +
+                ", quantity='" + quantity + '\'' +
                 '}';
     }
 }
