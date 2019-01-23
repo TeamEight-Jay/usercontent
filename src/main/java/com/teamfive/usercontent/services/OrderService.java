@@ -1,6 +1,5 @@
 package com.teamfive.usercontent.services;
 
-import com.teamfive.usercontent.dto.OrderIntDTO;
 import com.teamfive.usercontent.entity.Order;
 
 public interface OrderService {

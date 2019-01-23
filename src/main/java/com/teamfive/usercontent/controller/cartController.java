@@ -25,6 +25,7 @@ public class cartController {
     @PostMapping("/item/add")
     public CartDTO addItem(@RequestBody CartRequestDTO cartRequestDTO)
     {
+        System.out.println(cartRequestDTO);
         cartService.addItem(cartRequestDTO.getToken(),cartRequestDTO.getProduct());
         return cartService.getCart(cartRequestDTO.getToken());
     }

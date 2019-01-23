@@ -88,6 +88,8 @@ public class CartServiceImplementation implements CartService {
     public void deleteItem(String userId, String inventoryId) {
         Cart cart=cartRepository.findOne(userId);
         cart.getProduct().remove(inventoryId);
+        cartRepository.delete(cart.getUserId());
+        cartRepository.save(cart);
     }
 
     @Override
