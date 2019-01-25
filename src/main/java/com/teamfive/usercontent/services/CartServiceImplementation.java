@@ -73,7 +73,7 @@ public class CartServiceImplementation implements CartService {
         if(cart.getProduct().containsKey(key))
         {
             MiniProductDTO miniProductDTOInMap=cart.getProduct().get(key);
-            miniProductDTOInMap.setQuantity(miniProductDTO.getQuantity()+miniProductDTOInMap.getQuantity());
+            miniProductDTOInMap.setQuantity(Math.max(0,miniProductDTO.getQuantity()+miniProductDTOInMap.getQuantity()));
             miniProductDTOInMap.setPrice(miniProductDTO.getPrice());
             cart.getProduct().put(key,miniProductDTOInMap);
         }

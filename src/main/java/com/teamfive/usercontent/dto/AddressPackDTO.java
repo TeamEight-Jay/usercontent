@@ -1,10 +1,12 @@
 package com.teamfive.usercontent.dto;
 
-import com.teamfive.usercontent.entity.Address;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressPackDTO {
+
     private String token;
-    private Address address;
+    private List<String> addressList= new ArrayList<String>();
 
     public String getToken() {
         return token;
@@ -14,19 +16,19 @@ public class AddressPackDTO {
         this.token = token;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<String> getAddressList() {
+        return addressList;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressList(List<String> addressList) {
+        this.addressList = addressList;
     }
 
     @Override
     public String toString() {
         return "AddressPackDTO{" +
                 "token='" + token + '\'' +
-                ", address=" + address +
+                ", addressList=" + addressList +
                 '}';
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class AddressPackServiceImplementation implements AddressPackService {
@@ -14,12 +15,6 @@ public class AddressPackServiceImplementation implements AddressPackService {
     @Override
     public AddressPack addAddressPack(AddressPack addressPack) {
         return addressPackRepositroy.save(addressPack);
-    }
-
-    @Override
-    public AddressPack getAddressPack(String token) {
-      AddressPack addressPack=addressPackRepositroy.findOne(token);
-      return addressPack ;
     }
 
     @Override
@@ -33,8 +28,8 @@ addressPackRepositroy.delete(token);
     }
 
     @Override
-    public Iterable<AddressPack> findByToken(String token) {
-        Iterable<AddressPack> addressPacks=addressPackRepositroy.findByToken(token);
+    public AddressPack findByToken(String token) {
+        AddressPack addressPacks=addressPackRepositroy.findByToken(token);
         return addressPacks;
     }
 }

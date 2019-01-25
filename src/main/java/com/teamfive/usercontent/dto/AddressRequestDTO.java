@@ -1,10 +1,8 @@
 package com.teamfive.usercontent.dto;
 
-import java.io.Serializable;
-
-public class OrderRequestDTO implements Serializable {
+public class AddressRequestDTO {
     private String token;
-    private OrderDTO order;
+    private String address;
 
 
     public String getToken() {
@@ -15,20 +13,19 @@ public class OrderRequestDTO implements Serializable {
         this.token = token;
     }
 
-
-    public OrderDTO getOrder() {
-        return order;
+    public String getAddress() {
+        return address;
     }
 
-    public void setOrder(OrderDTO order) {
-        this.order = order;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        return "OrderRequestDTO{" +
+        return "AddressRequestDTO{" +
                 "token='" + token + '\'' +
-                ", order=" + order +
+                ", address=" + address +
                 '}';
     }
 }

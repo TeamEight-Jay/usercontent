@@ -1,38 +1,50 @@
 package com.teamfive.usercontent.controller;
 
 import com.teamfive.usercontent.dto.AddressPackDTO;
+import com.teamfive.usercontent.dto.AddressRequestDTO;
 import com.teamfive.usercontent.entity.AddressPack;
 import com.teamfive.usercontent.services.AddressPackService;
-import com.teamfive.usercontent.services.AddressService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/address")
 public class AddressController {
     @Autowired
     AddressPackService addressPackService;
-    @Autowired
-    AddressService addressService;
-    @PostMapping("/add")
-    public AddressPack addAddressPack(@RequestBody AddressPackDTO addressPackDTO)
+
+
+    @RequestMapping(value ="/add",method = RequestMethod.POST)
+    public AddressPack addAddressPack(@RequestBody AddressRequestDTO addressRequestDTO)
     {
-        AddressPack addressPack= getAddressPack(addressPackDTO.getToken());
+        AddressPack addressPack= addressPackService.findByToken(addressRequestDTO.getToken());
         if(addressPack==null) addressPack=new AddressPack();
-        addressPack.setToken(addressPackDTO.getToken());
-        addressPack.setAddressList(addressPackDTO.getAddress());
+        addressPack.setToken(addressRequestDTO.getToken());
+        addressPack.setAddressList(addressRequestDTO.getAddress());
         addressPackService.updateAddressPack(addressPack);
         return addressPack;
     }
-    @RequestMapping(value ="/select",method = RequestMethod.GET)
-    public AddressPack getAddressPack(@RequestParam String token)
+    @RequestMapping(value ="/get",method = RequestMethod.GET)
+    public AddressPackDTO getAddressPack(@RequestParam String token)
     {
-        AddressPack addressPack=addressPackService.getAddressPack(token);
-        return addressPack;
+        AddressPack addressPack=addressPackService.findByToken(token);
+        System.out.println(token);
+        if(addressPack==null) return null;
+        AddressPackDTO addressPackDTO=new AddressPackDTO();
+        ArrayList<String> addressDTOS=new ArrayList<String>();
+        for(String address:addressPack.getAddressList())
+        {
+            addressDTOS.add(address);
+        }
+        addressPackDTO.setAddressList(addressDTOS);
+        addressPackDTO.setToken(addressPack.getToken());
+        return addressPackDTO;
     }
     @RequestMapping(value ="/update",method = RequestMethod.PUT)
-    public AddressPack updateAddressPack(@RequestBody AddressPackDTO addressPackDTO)
+    public AddressPack updateAddressPack(@RequestBody AddressRequestDTO addressPackDTO)
     {
         AddressPack addressPack = new AddressPack();
         BeanUtils.copyProperties(addressPackDTO,addressPack);
@@ -45,10 +57,5 @@ public class AddressController {
         addressPackService.deleteAddressPack(token);
     }
 
-    @RequestMapping(value = "/findByToken",method = RequestMethod.GET)
-    public Iterable<AddressPack> findByToken(String token)
-    {
 
-        return addressPackService.findByToken(token);
-    }
 }

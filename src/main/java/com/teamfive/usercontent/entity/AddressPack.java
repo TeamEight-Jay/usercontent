@@ -3,17 +3,18 @@ package com.teamfive.usercontent.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection=AddressPack.COLLECTION_NAME)
-public class AddressPack {
-    public static final String COLLECTION_NAME="addresspack";
+public class AddressPack implements Serializable {
+    public static final String COLLECTION_NAME="address";
 
 
     @Id
     private String token;
-    private List<Address> addressList= new ArrayList();
+    private List<String> addressList= new ArrayList<String>();
 
     public String getToken() {
         return token;
@@ -23,11 +24,11 @@ public class AddressPack {
         this.token = token;
     }
 
-    public List<Address> getAddressList(Address address) {
+    public List<String> getAddressList() {
         return this.addressList;
     }
 
-    public void setAddressList(Address addressList) {
+    public void setAddressList(String addressList) {
         this.addressList.add(addressList);
     }
 
