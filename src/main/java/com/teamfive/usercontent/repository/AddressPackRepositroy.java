@@ -1,6 +1,5 @@
 package com.teamfive.usercontent.repository;
 
-import com.teamfive.usercontent.entity.Address;
 import com.teamfive.usercontent.entity.AddressPack;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
